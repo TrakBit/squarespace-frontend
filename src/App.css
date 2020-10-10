@@ -1,0 +1,164 @@
+
+#parent_div_1{
+  width:50px;
+  height:100px;
+  float:left;
+}
+
+#parent_div_2{
+  width:150px;
+  height:100px;
+  float:left;
+}
+.child_div_1{
+  float:left;
+}
+
+#parent {
+  height:200px;
+}
+
+#childWrapper {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+#childWrapper > li {
+  float: left;
+  width: 100px;
+  height: 200px;
+}
+
+.App {
+  min-height: 100vh;
+  background-color: #f4f9f4;
+  font-family: 'rubik';
+}
+
+.ant-menu-item-selected{
+  background-color: #00b7c2 !important
+}
+
+.ant-switch-checked{
+  background-color: #00b7c2 !important
+}
+
+.ant-btn-primary{
+  background-color: #00b7c2 !important;
+  border-color: #00b7c2 !important;
+}
+
+.App-logo {
+  height: 100vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.Plug-card {
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         2px 1px 4px 1px #c9d1d3;
+}
+
+
+.App-card {
+  text-align: center;
+  min-height: 60vh;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         5px 2px 12px 3px #c9d1d3;
+}
+
+
+.App-form {
+  min-height: 60vh;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         5px 2px 12px 3px #c9d1d3;
+}
+
+.App-login {
+  text-align: center;
+  min-width: 50vh;
+  min-height: 35vh;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         5px 2px 12px 3px #c9d1d3;
+}
+
+.Sub-card {
+  text-align: center;
+  min-width: 50vh;
+  min-height: 20vh;
+  background-color: #FFFFFF;
+  border-radius: 2px;
+  -moz-box-shadow:    3px 3px 5px 6px #ccc;
+  -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  box-shadow:         5px 2px 12px 3px #c9d1d3;
+}
+
+
+.App-header {
+  background-color: #FFFFFF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+.rcard {
+  padding: 1rem;
+}
+
+.rcards {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-gap: 1rem;
+}
+
+/* Screen larger than 600px? 2 column */
+@media (min-width: 600px) {
+  .rcards { 
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Screen larger than 900px? 3 columns */
+@media (min-width: 900px) {
+  .rcards { 
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
