@@ -105,6 +105,28 @@ function Dashboard() {
     return (
         <div className='App'>
             <HeaderComponent />
+            <Row>
+                <Col span={8}/>
+                <Col span={8}>
+                    <Container>
+                        <div
+                            className='Sub-card'
+                            style={{borderRadius: 0, marginTop: '50px'}}
+                        >
+                            <div style={{marginTop: '4%'}}>
+                                <h4 style={head}>{'WhatsApp Chat Widget'}</h4>
+                            </div>
+                            <Button
+                                style={{width: '90%', marginBottom: '10px'}}
+                                type='primary'
+                            >
+                                CREATE
+                            </Button>
+                        </div>
+                    </Container>
+                </Col>
+                <Col span={8}/>
+            </Row>
         </div>
     );
 }
