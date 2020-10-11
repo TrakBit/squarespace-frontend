@@ -4,11 +4,7 @@ import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import Dialog from 'react-modal';
 import {
-    getUser,
-    resetPassword,
-    getSubscription,
-    cancelSubscription,
-    getInvoices
+    createWidget
 } from './../Api/Api';
 import {
     UserOutlined,
@@ -119,6 +115,7 @@ function Dashboard() {
                             <Button
                                 style={{width: '90%', marginBottom: '10px'}}
                                 type='primary'
+                                onClick={() => createWidget()}
                             >
                                 CREATE
                             </Button>

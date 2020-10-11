@@ -1,7 +1,7 @@
 import fetch from './Config';
 
 export const createWidget = () => {
-  return fetch.get('/createwidget/');
+  return fetch.get('/create/');
 }
 
 export const register = (name, email, password) => {
