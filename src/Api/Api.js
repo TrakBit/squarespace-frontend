@@ -1,7 +1,18 @@
 import fetch from './Config';
 
 export const createWidget = () => {
-  return fetch.get('/create/');
+  const body = {};
+  const headers = {
+    Authorization: 'Token ' + localStorage.getItem('token')
+  };
+  return fetch.post('/widget/', body, {headers});
+}
+
+export const getWidget = () => {
+  const headers = {
+    Authorization: 'Token ' + localStorage.getItem('token')
+  };
+  return fetch.get('/widget/', {headers});
 }
 
 export const register = (name, email, password) => {

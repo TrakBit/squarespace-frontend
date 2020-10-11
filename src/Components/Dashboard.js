@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import Dialog from 'react-modal';
 import {
-    createWidget
+    createWidget,
+    getWidget
 } from './../Api/Api';
 import {
     UserOutlined,
@@ -97,6 +98,10 @@ const heading = {
 };
 
 function Dashboard() {
+
+    useEffect(() => {
+        getWidget()
+    }, [])
 
     return (
         <div className='App'>
