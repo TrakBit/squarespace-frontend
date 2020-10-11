@@ -98,7 +98,7 @@ const heading = {
 };
 
 function Dashboard() {
-
+    const history = useHistory();
     const [widget, setWidget] = useState([])
 
     useEffect(() => {
@@ -111,9 +111,14 @@ function Dashboard() {
         config()
     }, [])
 
+    const logout = () => {
+        localStorage.clear();
+        history.push('/');
+    };
+
     return (
         <div className='App'>
-            <HeaderComponent />
+            <HeaderComponent logout={logout}/>
             <Row>
                 <Col span={8}/>
                 <Col span={8}>
@@ -175,7 +180,7 @@ const Widget = ({widget}) => {
 }
 
 
-const HeaderComponent = () => {
+const HeaderComponent = ({logout}) => {
     return (
         <Header style={{background: '#FFFFFF'}}>
             <Row>
@@ -190,7 +195,7 @@ const HeaderComponent = () => {
                     span={2}
                     style={{marginLeft: '10px'}}
                 >
-                    <OutlineButton>LOGOUT</OutlineButton>
+                    <OutlineButton onClick={() => logout()}>LOGOUT</OutlineButton>
                 </Col>
             </Row>
         </Header>
