@@ -99,8 +99,16 @@ const heading = {
 
 function Dashboard() {
 
+    const [widget, setWidget] = useState([])
+
     useEffect(() => {
-        getWidget()
+        const config = async() => {
+            const widgetData = await getWidget()
+            if (widgetData.data.widget.length > 0) {
+                setWidget(widgetData.data.widget)
+            }
+        }
+        config()
     }, [])
 
     return (
@@ -114,16 +122,7 @@ function Dashboard() {
                             className='Sub-card'
                             style={{borderRadius: 0, marginTop: '50px'}}
                         >
-                            <div style={{marginTop: '4%'}}>
-                                <h4 style={head}>{'WhatsApp Chat Widget'}</h4>
-                            </div>
-                            <Button
-                                style={{width: '90%', marginBottom: '10px'}}
-                                type='primary'
-                                onClick={() => createWidget()}
-                            >
-                                CREATE
-                            </Button>
+                            <Widget widget={widget}/>
                         </div>
                     </Container>
                 </Col>
@@ -132,6 +131,49 @@ function Dashboard() {
         </div>
     );
 }
+
+const Widget = ({widget}) => {
+    if (widget.length > 0) {
+        return (
+            <>
+                <div style={{marginTop: '4%'}}>
+                    <h4 style={head}>{'WhatsApp Profile'}</h4>
+                </div>
+                <div style={{marginTop: '4%'}}>
+                    <Avatar
+                        src={widget[0].profile_pic}
+                        size={84}
+                    />
+                </div>
+                <div style={{marginTop: '4%'}}>
+                    <h4 style={head}>{widget[0].header}</h4>
+                </div>
+                <Button
+                    style={{width: '90%', marginBottom: '10px'}}
+                    type='primary'
+                >
+                    EDIT WIDGET
+                </Button>
+            </>
+        )
+    } else {
+        return (
+            <>
+                <div style={{marginTop: '4%'}}>
+                    <h4 style={head}>{'WhatsApp Chat Widget'}</h4>
+                </div>
+                <Button
+                    style={{width: '90%', marginBottom: '10px'}}
+                    type='primary'
+                    onClick={() => createWidget()}
+                >
+                    CREATE WIDGET
+                </Button>
+            </>
+        )
+    }
+}
+
 
 const HeaderComponent = () => {
     return (
