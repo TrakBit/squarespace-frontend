@@ -134,10 +134,12 @@ function Widget({ location }) {
           () => {
             storage
               .ref("images")
-              .child(file.name)
+              .child(location.state.profile_id)
               .getDownloadURL()
               .then(url => {
                 setUrl(url);
+                // TODO: save url in profile
+                console.log(url)
                 setProgress(0);
               });
           }
