@@ -274,6 +274,7 @@ function Widget({ location }) {
               position: "fixed",
               width: 350,
               height: 280,
+              marginTop: '50px',
               right: "2%",
               backgroundColor: "#075e54",
               borderRadius: 10,
