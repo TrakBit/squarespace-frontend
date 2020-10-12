@@ -6,6 +6,7 @@ import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
 import Configure from './Components/Configure/Configure';
 import Account from './Components/Account';
+import Widget from './Components/Widget';
 
 export default function Routes() {
   return (
@@ -15,6 +16,11 @@ export default function Routes() {
                   exact={true}
                   path='/'
                   component={Home}
+              />
+              <Route
+                  exact={true}
+                  path='/widget'
+                  component={Widget}
               />
               <Route
                   exact={true}

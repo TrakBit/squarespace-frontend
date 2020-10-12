@@ -153,12 +153,22 @@ const Widget = ({widget}) => {
                 <div style={{marginTop: '4%'}}>
                     <h4 style={head}>{widget[0].header}</h4>
                 </div>
-                <Button
-                    style={{width: '90%', marginBottom: '10px'}}
-                    type='primary'
+                <Link 
+                    to={{
+                        pathname: '/widget',
+                        state: {
+                            profile_id: widget[0].profile_id
+                        }
+                    }}
+                    style={{color: '#FFF'}}
                 >
-                    EDIT WIDGET
-                </Button>
+                    <Button
+                        style={{width: '90%', marginBottom: '10px'}}
+                        type='primary'
+                    >
+                            EDIT WIDGET
+                    </Button>
+                </Link>
             </>
         )
     } else {
