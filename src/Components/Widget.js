@@ -7,11 +7,8 @@ import config from './Config';
 import firebase from 'firebase/app';
 import 'firebase/storage';
 import {
-  getUser,
-  resetPassword,
-  getSubscription,
-  cancelSubscription,
-  getInvoices
+  getWidget,
+  upload
 } from './../Api/Api';
 import {
   UserOutlined,
@@ -111,6 +108,23 @@ function Widget({ location }) {
   const [url, setUrl] = useState("");
   const [progress, setProgress] = useState(0);
   const [error, setError] = useState("");
+  const [widget, setWidget] = useState([{
+    profile_id: "",
+    profile_pic: "",
+    header: "",
+    caption: "",
+    message: ""
+  }])
+
+  useEffect(() => {
+      const config = async() => {
+          const widgetData = await getWidget()
+          if (widgetData.data.widget.length > 0) {
+              setWidget(widgetData.data.widget)
+          }
+      }
+      config()
+  }, [])
 
   const handChange = (e) => {
     const file = e.target.files[0];
@@ -138,9 +152,16 @@ function Widget({ location }) {
               .getDownloadURL()
               .then(url => {
                 setUrl(url);
-                // TODO: save url in profile
+                upload(url)
                 console.log(url)
                 setProgress(0);
+                setWidget([{
+                  profile_id: widget[0].profile_id,
+                  profile_pic: url,
+                  header: widget[0].header,
+                  caption: widget[0].caption,
+                  message: widget[0].message
+                }])
               });
           }
         );
@@ -150,6 +171,36 @@ function Widget({ location }) {
       }
     }
   };
+
+  const setHeader = (e) => {
+    setWidget([{
+      profile_id: widget[0].profile_id,
+      profile_pic: widget[0].profile_pic,
+      header: e,
+      caption: widget[0].caption,
+      message: widget[0].message
+    }])
+  }
+
+  const setCaption = (e) => {
+    setWidget([{
+      profile_id: widget[0].profile_id,
+      profile_pic: widget[0].profile_pic,
+      header: widget[0].header,
+      caption: e,
+      message: widget[0].message
+    }])
+  }
+
+  const setMessage = (e) => {
+    setWidget([{
+      profile_id: widget[0].profile_id,
+      profile_pic: widget[0].profile_pic,
+      header: widget[0].header,
+      caption: widget[0].caption,
+      message: e
+    }])
+  }
 
   return (
     <div className='App'>
@@ -164,14 +215,52 @@ function Widget({ location }) {
             >
               <div style={{ width: '90%', marginLeft: '16px' }}>
                 <div style={{ marginTop: '4%' }}>
-                  <h1 style={heading}>{'Profile Picture'}</h1>
+                  <h1 style={heading}>{'Update Profile'}</h1>
                 </div>
                 <div style={{ marginTop: '4%' }}>
-                  <label class="custom-file-upload">
+                  <label className="custom-file-upload">
                     <Input type="file" onChange={handChange} />
-                        UPLOAD
-                      </label>
+                    PROFILE PICTURE
+                  </label>
                 </div>
+
+                <div style={{paddingTop: '4%'}}>
+                    <Input
+                        addonBefore={'Header'}
+                        value={widget[0].header}
+                        onChange={(e) => setHeader(e.target.value)}
+                        placeholder='Header'
+                        maxLength={20}
+                    />
+                </div>
+                <div style={{paddingTop: '4%'}}>
+                    <Input
+                        addonBefore={'Caption'}
+                        value={widget[0].caption}
+                        onChange={(e) => setCaption(e.target.value)}
+                        placeholder='Caption'
+                        maxLength={30}
+                    />
+                </div>
+                <div style={{paddingTop: '4%'}}>
+                    <Input
+                        addonBefore={'Message'}
+                        value={widget[0].message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        placeholder='Message'
+                        maxLength={60}
+                    />
+                </div>
+                <div style={{paddingTop: '15%', paddingBottom: '5%'}}>
+                    <OutlineButton
+                        style={{width: '100%'}}
+                        type='primary'
+                    >
+                        UPDATE PROFILE
+                    </OutlineButton>
+                </div>
+
+
               </div>
             </div>
           </Container>
@@ -198,7 +287,7 @@ function Widget({ location }) {
                 style={{ display: "inline-block", width: "10%", verticalAlign: "-20px" }}
               >
                 <img
-                  src="https://user-images.githubusercontent.com/3825401/95160087-47380880-07bd-11eb-8605-795c0a41f851.png"
+                  src={widget[0].profile_pic}
                   width="60px"
                   height="60px"
                   style={{ marginTop: -60, borderRadius: 30 }}
@@ -217,8 +306,8 @@ function Widget({ location }) {
                     color: "#FFF"
                   }}
                 >
-                  Harsh Vardhan
-      </h1>
+                  {widget[0].header}&nbsp;
+                </h1>
                 <p
                   style={{
                     marginTop: "-10px",
@@ -228,8 +317,8 @@ function Widget({ location }) {
                     color: "#FFF"
                   }}
                 >
-                  Support
-      </p>
+                  {widget[0].caption}&nbsp;
+                </p>
                 <p></p>
               </div>
             </div>
@@ -242,7 +331,8 @@ function Widget({ location }) {
                   marginTop: 30,
                   float: "left",
                   borderRadius: 10,
-                  backgroundColor: "#FFF"
+                  backgroundColor: "#FFF",
+                  wordWrap: 'break-word'
                 }}
               >
                 <h4
@@ -255,10 +345,8 @@ function Widget({ location }) {
                     color: "#000"
                   }}
                 >
-                  Hi there
-        <br />
-        How can I help you
-      </h4>
+                  {widget[0].message}
+                </h4>
               </div>
             </div>
             <div
@@ -292,7 +380,7 @@ function Widget({ location }) {
                   }}
                 >
                   Start Chat
-      </h4>
+                </h4>
               </div>
             </div>
           </div>

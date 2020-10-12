@@ -15,6 +15,14 @@ export const getWidget = () => {
   return fetch.get('/widget/', {headers});
 }
 
+export const upload = (url) => {
+  const body = {url};
+  const headers = {
+    Authorization: 'Token ' + localStorage.getItem('token')
+  };
+  return fetch.post('/upload/', body, {headers});
+};
+
 export const register = (name, email, password) => {
   const body = {name, email, password};
   return fetch.post('/register/', body);
