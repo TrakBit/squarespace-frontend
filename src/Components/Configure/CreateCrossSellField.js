@@ -56,15 +56,14 @@ const crossOptions = {
 };
 
 const CreateCrossSellField = ({location, crossSellFieldModalVisible}) => {
-
     const [itemCheck, setItemCheck] = useState(-1);
     const [tickMotionStopped, setTickMotion] = useState(true);
 
     const verifyCrossSellAction = async () => {
-        const verifiedData = await verifyUpSell(location.state.site_id)
-        setItemCheck(verifiedData.data.upsell)
-        setTickMotion(false)
-    }
+        const verifiedData = await verifyUpSell(location.state.site_id);
+        setItemCheck(verifiedData.data.upsell);
+        setTickMotion(false);
+    };
     return (
         <>
             <h1 style={{fontSize: '90px'}}>🍔 + 🍟 + 🥤</h1>
@@ -85,7 +84,7 @@ const CreateCrossSellField = ({location, crossSellFieldModalVisible}) => {
                         <PlayCircleOutlined style={{fontSize: '18px'}}/>
                         {'  Add Cross-Sell Field'}
                     </OutlineButton>
-                    
+
                     <div style={{marginTop: '20px', marginBottom: '20px'}}>
                         <img
                             style={{
@@ -110,7 +109,7 @@ const CreateCrossSellField = ({location, crossSellFieldModalVisible}) => {
                     <h1 style={heading}>
                         Verify if cross-sell field is created
                     </h1>
-                    
+
                     <OutlineButton
                         type='primary'
                         onClick={() => verifyCrossSellAction()}
@@ -128,7 +127,7 @@ const CreateCrossSellField = ({location, crossSellFieldModalVisible}) => {
             <br/>
         </>
     );
-}
+};
 
 const ListCheckComponent = ({listCheck, tickMotionStopped}) => {
     if (listCheck === 1) {

@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Layout, Avatar, Input, notification} from 'antd';
+import {Row, Col, Layout, Avatar, Input, notification, Card} from 'antd';
 import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import Dialog from 'react-modal';
@@ -8,9 +8,9 @@ import {
     getWidget
 } from './../Api/Api';
 import {
-    UserOutlined,
-    InfoCircleTwoTone
+    CopyOutlined
 } from '@ant-design/icons';
+import {CopyToClipboard} from 'react-copy-to-clipboard';
 
 const {Header} = Layout;
 const FlexCol = styled.div`
@@ -99,17 +99,23 @@ const heading = {
 
 function Dashboard() {
     const history = useHistory();
-    const [widget, setWidget] = useState([])
+    const [widget, setWidget] = useState([{
+        profile_id: '',
+        profile_pic: '',
+        header: '',
+        caption: '',
+        message: ''
+    }]);
 
     useEffect(() => {
-        const config = async() => {
-            const widgetData = await getWidget()
+        const config = async () => {
+            const widgetData = await getWidget();
             if (widgetData.data.widget.length > 0) {
-                setWidget(widgetData.data.widget)
+                setWidget(widgetData.data.widget);
             }
-        }
-        config()
-    }, [])
+        };
+        config();
+    }, []);
 
     const logout = () => {
         localStorage.clear();
@@ -120,6 +126,107 @@ function Dashboard() {
         <div className='App'>
             <HeaderComponent logout={logout}/>
             <Row>
+                <Widget widget={widget}/>
+            </Row>
+        </div>
+    );
+}
+
+const Widget = ({widget}) => {
+    const snippet = `
+        <script src="https://www.airplug.xyz/webplug.js" defer></script>
+        <div id='${widget[0].profile_id}' class="salesjump"></div>
+  `;
+
+    if (widget.length > 0) {
+        return (
+            <>
+                <Col span={2}/>
+                <Col span={8}>
+                    <Container>
+                        <div
+                            className='Sub-card'
+                            style={{borderRadius: 0, marginTop: '50px'}}
+                        >
+                            <div style={{marginTop: '4%'}}>
+                                <h4 style={head}>{'WhatsApp Profile'}</h4>
+                            </div>
+                            <div style={{marginTop: '4%'}}>
+                                <Avatar
+                                    src={widget[0].profile_pic}
+                                    size={84}
+                                />
+                            </div>
+                            <div style={{marginTop: '4%'}}>
+                                <h4 style={head}>{widget[0].header}</h4>
+                            </div>
+                            <Link
+                                to={{
+                                    pathname: '/widget',
+                                    state: {
+                                        profile_id: widget[0].profile_id
+                                    }
+                                }}
+                                style={{color: '#FFF'}}
+                            >
+                                <Button
+                                    style={{width: '90%', marginBottom: '10px'}}
+                                    type='primary'
+                                >
+                                    EDIT WIDGET
+                                </Button>
+                            </Link>
+                        </div>
+                    </Container>
+                </Col>
+                <Col span={4}/>
+                <Col span={8}>
+                    <Container>
+                        <div
+                            className='Sub-card'
+                            style={{borderRadius: 0, marginTop: '50px'}}
+                        >
+                            <div style={{width: '90%', marginLeft: '16px'}}>
+                                <div style={{marginTop: '4%'}}>
+                                    <h1 style={heading}>{'Add WhatsApp Widget'}</h1>
+                                </div>
+                                <div style={{marginTop: '4%'}}>
+                                    <CopyToClipboard text={snippet}>
+                                        <OutlineButton
+                                            style={{width: '100%'}}
+                                            type='primary'
+                                            icon={<CopyOutlined/>}
+                                            size={'small'}
+                                        >
+                                            {'Copy'}
+                                        </OutlineButton>
+                                    </CopyToClipboard>
+                                </div>
+                                <Card
+                                    style={{
+                                        borderRadius: '2px',
+                                        borderColor: '#ccc',
+                                        marginTop: '4%'
+                                    }}
+                                >
+                                    <h4 style={{color: '#525f7f'}}>
+                                        <a
+                                            style={{fontSize: '17px', color: '#525f7f'}}
+                                        >
+                                            Copy the Snippet and paste it in Settings ➡️ Advance ➡️ Code Injection ➡️ Header
+                                        </a>
+                                    </h4>
+                                </Card>
+                                <br/>
+                            </div>
+                        </div>
+                    </Container>
+                </Col>
+            </>
+        );
+    } else {
+        return (
+            <>
                 <Col span={8}/>
                 <Col span={8}>
                     <Container>
@@ -127,68 +234,24 @@ function Dashboard() {
                             className='Sub-card'
                             style={{borderRadius: 0, marginTop: '50px'}}
                         >
-                            <Widget widget={widget}/>
+                            <div style={{marginTop: '4%'}}>
+                                <h4 style={head}>{'WhatsApp Chat Widget'}</h4>
+                            </div>
+                            <Button
+                                style={{width: '90%', marginBottom: '10px'}}
+                                type='primary'
+                                onClick={() => createWidget()}
+                            >
+                                CREATE WIDGET
+                            </Button>
                         </div>
                     </Container>
                 </Col>
                 <Col span={8}/>
-            </Row>
-        </div>
-    );
-}
-
-const Widget = ({widget}) => {
-    if (widget.length > 0) {
-        return (
-            <>
-                <div style={{marginTop: '4%'}}>
-                    <h4 style={head}>{'WhatsApp Profile'}</h4>
-                </div>
-                <div style={{marginTop: '4%'}}>
-                    <Avatar
-                        src={widget[0].profile_pic}
-                        size={84}
-                    />
-                </div>
-                <div style={{marginTop: '4%'}}>
-                    <h4 style={head}>{widget[0].header}</h4>
-                </div>
-                <Link 
-                    to={{
-                        pathname: '/widget',
-                        state: {
-                            profile_id: widget[0].profile_id
-                        }
-                    }}
-                    style={{color: '#FFF'}}
-                >
-                    <Button
-                        style={{width: '90%', marginBottom: '10px'}}
-                        type='primary'
-                    >
-                            EDIT WIDGET
-                    </Button>
-                </Link>
             </>
-        )
-    } else {
-        return (
-            <>
-                <div style={{marginTop: '4%'}}>
-                    <h4 style={head}>{'WhatsApp Chat Widget'}</h4>
-                </div>
-                <Button
-                    style={{width: '90%', marginBottom: '10px'}}
-                    type='primary'
-                    onClick={() => createWidget()}
-                >
-                    CREATE WIDGET
-                </Button>
-            </>
-        )
+        );
     }
-}
-
+};
 
 const HeaderComponent = ({logout}) => {
     return (
@@ -215,8 +278,8 @@ const HeaderComponent = ({logout}) => {
 function Icon() {
     return (
         <div style={{width: '45px', marginTop: '10px'}}>
-            <svg viewBox="0 0 345.52 345.52">
-            <path d="M279.369 101.014l-99.265-98.22a10.972 10.972 0 00-14.629 0L66.21 100.492a12.017 12.017 0 00-2.612 12.539 12.54 12.54 0 009.927 7.837h47.02v120.686c-.008 5.482 4.43 9.933 9.913 9.94.179 0 .358-.004.536-.014h83.592c5.475.289 10.147-3.916 10.435-9.39.009-.179.014-.357.014-.536V120.867h47.02a12.54 12.54 0 009.927-7.837 11.497 11.497 0 00-2.613-12.016zm-64.784-1.045c-5.747 0-10.449 2.09-10.449 7.837v122.776h-62.694V107.806c0-5.747-4.702-7.837-10.449-7.837H99.124l73.665-72.098 73.665 72.098h-31.869zM214.585 261.929h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 293.275h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 324.622h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449z" />
+            <svg viewBox='0 0 345.52 345.52'>
+                <path d='M279.369 101.014l-99.265-98.22a10.972 10.972 0 00-14.629 0L66.21 100.492a12.017 12.017 0 00-2.612 12.539 12.54 12.54 0 009.927 7.837h47.02v120.686c-.008 5.482 4.43 9.933 9.913 9.94.179 0 .358-.004.536-.014h83.592c5.475.289 10.147-3.916 10.435-9.39.009-.179.014-.357.014-.536V120.867h47.02a12.54 12.54 0 009.927-7.837 11.497 11.497 0 00-2.613-12.016zm-64.784-1.045c-5.747 0-10.449 2.09-10.449 7.837v122.776h-62.694V107.806c0-5.747-4.702-7.837-10.449-7.837H99.124l73.665-72.098 73.665 72.098h-31.869zM214.585 261.929h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 293.275h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 324.622h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449z'/>
             </svg>
         </div>
     );

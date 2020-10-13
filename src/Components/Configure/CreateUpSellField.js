@@ -63,23 +63,21 @@ const crossOptions = {
     }
 };
 
-
 const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
-
     const [itemCheck, setItemCheck] = useState(-1);
     const [tickMotionStopped, setTickMotion] = useState(true);
 
     const verifyUpSellAction = async () => {
-        const verifiedData = await verifyUpSell(location.state.site_id)
-        setItemCheck(verifiedData.data.upsell)
-        setTickMotion(false)
-    }
+        const verifiedData = await verifyUpSell(location.state.site_id);
+        setItemCheck(verifiedData.data.upsell);
+        setTickMotion(false);
+    };
 
     return (
         <>
             <EmojiContainer>
-                <div id="parent">
-                    <ul id="childWrapper">
+                <div id='parent'>
+                    <ul id='childWrapper'>
                         <li><h1 style={{fontSize: '30px', marginTop: '45%'}}>🍔</h1></li>
                         <li><h1 style={{fontSize: '90px'}}>{'<'}</h1></li>
                         <li><h1 style={{fontSize: '60px', marginTop: '25%'}}>🍔</h1></li>
@@ -95,7 +93,7 @@ const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
                     <Card
                         style={{
                             borderRadius: '2px',
-                            borderColor: '#ccc',
+                            borderColor: '#ccc'
                         }}
                     >
                         <Row>
@@ -112,15 +110,15 @@ const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
                         </Row>
 
                         <div style={{marginTop: '20px', marginBottom: '20px'}}>
-                        <img
-                            style={{
-                                width: '30%',
-                                borderImageWidth: '2px',
-                                borderColor: '#00000'
-                            }}
-                            src={'https://user-images.githubusercontent.com/3825401/92293099-72b9a000-ef3e-11ea-9f30-c09b7848cf72.png'}
-                        />
-                    </div>
+                            <img
+                                style={{
+                                    width: '30%',
+                                    borderImageWidth: '2px',
+                                    borderColor: '#00000'
+                                }}
+                                src={'https://user-images.githubusercontent.com/3825401/92293099-72b9a000-ef3e-11ea-9f30-c09b7848cf72.png'}
+                            />
+                        </div>
 
                     </Card>
                 </Col>
@@ -135,7 +133,7 @@ const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
                     <h1 style={heading}>
                         Add Custom field <a style={{color: '#00b7c2'}}>Upsell</a> of type Multi-reference to Product. This allows to reference any product to any other product.
                     </h1>
-                    
+
                     <OutlineButton
                         type='primary'
                         onClick={() => upsellFieldModalVisible(true)}
@@ -143,7 +141,7 @@ const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
                         <PlayCircleOutlined style={{fontSize: '18px'}}/>
                         {'  Add Upsell Field'}
                     </OutlineButton>
-                    
+
                     <div style={{marginTop: '20px', marginBottom: '20px'}}>
                         <img
                             style={{
@@ -168,7 +166,7 @@ const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
                     <h1 style={heading}>
                         Verify if upsell field is created
                     </h1>
-                    
+
                     <OutlineButton
                         type='primary'
                         onClick={() => verifyUpSellAction()}
@@ -186,8 +184,7 @@ const CreateUpsellField = ({location, upsellFieldModalVisible}) => {
             <br/>
         </>
     );
-}
-
+};
 
 const ListCheckComponent = ({listCheck, tickMotionStopped}) => {
     if (listCheck === 1) {
@@ -212,6 +209,5 @@ const ListCheckComponent = ({listCheck, tickMotionStopped}) => {
         return <div/>;
     }
 };
-
 
 export default CreateUpsellField;

@@ -60,46 +60,45 @@ const price = {
 };
 
 function Home() {
-
     const crosslink = () => {
-        window.open('https://salesjump.webflow.io/product/checked-shirt')
-    }
+        window.open('https://salesjump.webflow.io/product/checked-shirt');
+    };
 
-    const [screenWidth, setScreenWidth] = useState('50%')
+    const [screenWidth, setScreenWidth] = useState('50%');
 
     useEffect(() => {
         if (window.innerWidth < 480) {
-            setScreenWidth('100%')
+            setScreenWidth('100%');
         }
-    }, [])
+    }, []);
 
     const Banner = () => {
         if (window.innerWidth > 480) {
             return (
-               <>
-                    <h1 style={{fontSize: '5vw', textAlign:'center'}}>
-                    🍭 An eye candy on product page
+                <>
+                    <h1 style={{fontSize: '5vw', textAlign: 'center'}}>
+                        🍭 An eye candy on product page
                         <br/>to boost up your sales. 💰
                     </h1>
                     <h1 style={{fontSize: '2vw'}}>
                         A Webflow e-commerce plugin for Upsell and Cross-Sell
                     </h1>
-               </> 
-            )
+                </>
+            );
         } else {
             return (
                 <>
-                     <h1 style={{fontSize: '9vw', textAlign:'center'}}>
-                     🍭 An eye candy on product page
-                         <br/>to boost up your sales. 💰
-                     </h1>
-                     <h1 style={{fontSize: '4vw'}}>
-                         A Webflow e-commerce plugin for Upsell and Cross-Sell
-                     </h1>
-                </> 
-             )            
+                    <h1 style={{fontSize: '9vw', textAlign: 'center'}}>
+                        🍭 An eye candy on product page
+                        <br/>to boost up your sales. 💰
+                    </h1>
+                    <h1 style={{fontSize: '4vw'}}>
+                        A Webflow e-commerce plugin for Upsell and Cross-Sell
+                    </h1>
+                </>
+            );
         }
-    }
+    };
 
     return (
         <div
@@ -159,29 +158,29 @@ function Home() {
                 </Container>
             </div>
 
-            <Container style={{margin:'0 auto', width: screenWidth}}>
+            <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '35px', textAlign: 'center'}}>
                     Add Custom Designed Cross Sell and Upsell Offers
                 </h1>
                 <p style={{fontSize: '25px'}}>
-                    Give custom cross-sell offers <a style={highlight}><b>{'right on product page '}</b></a>. Select the choice of 
+                    Give custom cross-sell offers <a style={highlight}><b>{'right on product page '}</b></a>. Select the choice of
                     upsells and cross-sells for each product right in your webflow CMS
                 </p>
                 <OutlineButton onClick={crosslink}>LIVE DEMO</OutlineButton>
             </Container>
 
-            <Container style={{margin:'0 auto', width: screenWidth}}>
+            <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '35px', textAlign: 'center'}}>
                     You don't make money 💸 by making user navigate your website
                 </h1>
                 <p style={{fontSize: '25px'}}>
-                    Remove the unecessary steps of making them visit every single product page. 
+                    Remove the unecessary steps of making them visit every single product page.
                     <a style={highlight}><b>{'Give them relatable suggestions based on their product selection '}</b></a>
-                     and make them press the <OutlineButton>BUY</OutlineButton> button.
+                    and make them press the <OutlineButton>BUY</OutlineButton> button.
                 </p>
             </Container>
 
-            <Container style={{margin:'0 auto', width: screenWidth}}>
+            <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '45px', textAlign: 'center'}}>
                     Why wait, boost your sales now 🚀
                 </h1>
@@ -206,8 +205,8 @@ function Home() {
 function Icon() {
     return (
         <div style={{width: '45px'}}>
-            <svg viewBox="0 0 345.52 345.52">
-            <path d="M279.369 101.014l-99.265-98.22a10.972 10.972 0 00-14.629 0L66.21 100.492a12.017 12.017 0 00-2.612 12.539 12.54 12.54 0 009.927 7.837h47.02v120.686c-.008 5.482 4.43 9.933 9.913 9.94.179 0 .358-.004.536-.014h83.592c5.475.289 10.147-3.916 10.435-9.39.009-.179.014-.357.014-.536V120.867h47.02a12.54 12.54 0 009.927-7.837 11.497 11.497 0 00-2.613-12.016zm-64.784-1.045c-5.747 0-10.449 2.09-10.449 7.837v122.776h-62.694V107.806c0-5.747-4.702-7.837-10.449-7.837H99.124l73.665-72.098 73.665 72.098h-31.869zM214.585 261.929h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 293.275h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 324.622h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449z" />
+            <svg viewBox='0 0 345.52 345.52'>
+                <path d='M279.369 101.014l-99.265-98.22a10.972 10.972 0 00-14.629 0L66.21 100.492a12.017 12.017 0 00-2.612 12.539 12.54 12.54 0 009.927 7.837h47.02v120.686c-.008 5.482 4.43 9.933 9.913 9.94.179 0 .358-.004.536-.014h83.592c5.475.289 10.147-3.916 10.435-9.39.009-.179.014-.357.014-.536V120.867h47.02a12.54 12.54 0 009.927-7.837 11.497 11.497 0 00-2.613-12.016zm-64.784-1.045c-5.747 0-10.449 2.09-10.449 7.837v122.776h-62.694V107.806c0-5.747-4.702-7.837-10.449-7.837H99.124l73.665-72.098 73.665 72.098h-31.869zM214.585 261.929h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 293.275h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449zM214.585 324.622h-83.592c-5.771 0-10.449 4.678-10.449 10.449s4.678 10.449 10.449 10.449h83.592c5.771 0 10.449-4.678 10.449-10.449s-4.678-10.449-10.449-10.449z'/>
             </svg>
         </div>
     );

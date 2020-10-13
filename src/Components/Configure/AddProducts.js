@@ -38,7 +38,6 @@ const OutlineButton = styled.button`
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
 `;
 
-
 const AddProducts = ({upsellsModalVisible}) => {
     return (
         <>
@@ -53,8 +52,8 @@ const AddProducts = ({upsellsModalVisible}) => {
                     </h1>
 
                     <EmojiContainer>
-                        <div id="parent">
-                            <ul id="childWrapper">
+                        <div id='parent'>
+                            <ul id='childWrapper'>
                                 <li><h1 style={{fontSize: '30px', marginTop: '45%'}}>🍔</h1></li>
                                 <li><h1 style={{fontSize: '90px'}}>{'<'}</h1></li>
                                 <li><h1 style={{fontSize: '60px', marginTop: '25%'}}>🍔</h1></li>
@@ -63,7 +62,7 @@ const AddProducts = ({upsellsModalVisible}) => {
                             </ul>
                         </div>
                     </EmojiContainer>
-                    
+
                     <br/>
                     <OutlineButton
                         type='primary'
@@ -72,7 +71,7 @@ const AddProducts = ({upsellsModalVisible}) => {
                         <PlayCircleOutlined style={{fontSize: '18px'}}/>
                         {'  Add Upsells'}
                     </OutlineButton>
-                    
+
                     <div style={{marginTop: '20px', marginBottom: '20px'}}>
                         <img
                             style={{
@@ -109,6 +108,6 @@ const AddProducts = ({upsellsModalVisible}) => {
             </Row>
         </>
     );
-}
+};
 
 export default AddProducts;
