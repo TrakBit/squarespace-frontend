@@ -443,7 +443,6 @@ function Widget({location}) {
                                     zIndex: 100,
                                     boxShadow: '2px 2px 3px #999'
                                 }}
-                                onClick='showChat()'
                             >
                                 <svg
                                     style={{marginTop: 13}}
