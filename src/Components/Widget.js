@@ -109,7 +109,8 @@ function Widget({location}) {
         profile_pic: '',
         header: '',
         caption: '',
-        message: ''
+        message: '',
+        contact: 0
     }]);
 
     useEffect(() => {
@@ -154,7 +155,8 @@ function Widget({location}) {
                                     profile_pic: url,
                                     header: widget[0].header,
                                     caption: widget[0].caption,
-                                    message: widget[0].message
+                                    message: widget[0].message,
+                                    contact: widget[0].contact
                                 }]);
                             });
                     }
@@ -171,7 +173,8 @@ function Widget({location}) {
             profile_pic: widget[0].profile_pic,
             header: e,
             caption: widget[0].caption,
-            message: widget[0].message
+            message: widget[0].message,
+            contact: widget[0].contact
         }]);
     };
 
@@ -181,7 +184,8 @@ function Widget({location}) {
             profile_pic: widget[0].profile_pic,
             header: widget[0].header,
             caption: e,
-            message: widget[0].message
+            message: widget[0].message,
+            contact: widget[0].contact
         }]);
     };
 
@@ -191,7 +195,19 @@ function Widget({location}) {
             profile_pic: widget[0].profile_pic,
             header: widget[0].header,
             caption: widget[0].caption,
-            message: e
+            message: e,
+            contact: widget[0].contact
+        }]);
+    };
+
+    const setContact = (e) => {
+        setWidget([{
+            profile_id: widget[0].profile_id,
+            profile_pic: widget[0].profile_pic,
+            header: widget[0].header,
+            caption: widget[0].caption,
+            message: widget[0].message,
+            contact: e
         }]);
     };
 
@@ -199,7 +215,8 @@ function Widget({location}) {
         updateProfile(
             widget[0].header,
             widget[0].caption,
-            widget[0].message);
+            widget[0].message,
+            widget[0].contact);
     };
 
     return (
@@ -251,6 +268,16 @@ function Widget({location}) {
                                         value={widget[0].message}
                                         onChange={(e) => setMessage(e.target.value)}
                                         placeholder='Message'
+                                        maxLength={60}
+                                    />
+                                </div>
+                                <div style={{paddingTop: '4%'}}>
+                                    <Input
+                                        type='number'
+                                        addonBefore={'Contact'}
+                                        value={widget[0].contact}
+                                        onChange={(e) => setContact(e.target.value)}
+                                        placeholder='Contact'
                                         maxLength={60}
                                     />
                                 </div>
@@ -366,28 +393,38 @@ function Widget({location}) {
                                     borderRadius: '0px 0px 10px 10px'
                                 }}
                             >
-                                <div
+
+                                <a
+                                    href={'https://wa.me/' + widget[0].contact}
                                     style={{
                                         width: '90%',
-                                        height: 50,
-                                        marginTop: 15,
-                                        borderRadius: 25,
-                                        backgroundColor: '#25d366'
+                                        textDecoration: 'none'
                                     }}
                                 >
-                                    <h4
+                                    <div
                                         style={{
-                                            fontSize: 20,
-                                            marginTop: 12,
-                                            marginLeft: 10,
-                                            marginRight: 10,
-                                            textAlign: 'center',
-                                            color: '#FFF'
+                                            height: 50,
+                                            marginTop: 15,
+                                            paddingTop: 1,
+                                            borderRadius: 25,
+                                            backgroundColor: '#25d366'
                                         }}
                                     >
-                                        Start Chat
-                                    </h4>
-                                </div>
+                                        <h4
+                                            style={{
+                                                fontSize: 20,
+                                                marginTop: 8,
+                                                marginLeft: 10,
+                                                marginRight: 10,
+                                                textAlign: 'center',
+                                                color: '#FFF'
+                                            }}
+                                        >
+                                            Start Chat
+                                        </h4>
+                                    </div>
+                                </a>
+
                             </div>
                         </div>
                         <div

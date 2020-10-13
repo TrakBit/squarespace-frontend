@@ -23,8 +23,8 @@ export const upload = (url) => {
     return fetch.post('/upload/', body, {headers});
 };
 
-export const updateProfile = (header, caption, message) => {
-    const body = {header, caption, message};
+export const updateProfile = (header, caption, message, contact) => {
+    const body = {header, caption, message, contact};
     const headers = {
         Authorization: 'Token ' + localStorage.getItem('token')
     };
