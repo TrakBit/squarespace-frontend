@@ -8,7 +8,8 @@ import firebase from 'firebase/app';
 import 'firebase/storage';
 import {
   getWidget,
-  upload
+  upload,
+  updateProfile
 } from './../Api/Api';
 import {
   UserOutlined,
@@ -202,6 +203,13 @@ function Widget({ location }) {
     }])
   }
 
+  const updateProfileAction = () => {
+    updateProfile(
+      widget[0].header,
+      widget[0].caption,
+      widget[0].message)
+  }
+
   return (
     <div className='App'>
       <HeaderComponent />
@@ -255,6 +263,7 @@ function Widget({ location }) {
                     <OutlineButton
                         style={{width: '100%'}}
                         type='primary'
+                        onClick={() => updateProfileAction()}
                     >
                         UPDATE PROFILE
                     </OutlineButton>

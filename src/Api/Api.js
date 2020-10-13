@@ -23,6 +23,14 @@ export const upload = (url) => {
   return fetch.post('/upload/', body, {headers});
 };
 
+export const updateProfile = (header, caption, message) => {
+  const body = {header, caption, message};
+  const headers = {
+    Authorization: 'Token ' + localStorage.getItem('token')
+  };
+  return fetch.post('/profile/', body, {headers});
+};
+
 export const register = (name, email, password) => {
   const body = {name, email, password};
   return fetch.post('/register/', body);
