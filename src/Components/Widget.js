@@ -5,10 +5,11 @@ import {Link, useHistory} from 'react-router-dom';
 import config from './Config';
 import firebase from 'firebase/app';
 import 'firebase/storage';
+import { TwitterPicker } from 'react-color';
 import {
     getWidget,
     upload,
-    updateProfile
+    updateWidget
 } from './../Api/Api';
 
 const {Header} = Layout;
@@ -111,7 +112,11 @@ function Widget({location}) {
         header: '',
         caption: '',
         message: '',
-        contact: 0
+        contact: 0,
+        headerColor: '#075E54',
+        headerTextColor: '#FFFFFF',
+        buttonColor: '#25D366',
+        buttonTextColor: '#FFFFFF'
     }]);
 
     useEffect(() => {
@@ -153,12 +158,8 @@ function Widget({location}) {
                                 upload(url);
                                 setProgress(0);
                                 setWidget([{
-                                    profile_id: widget[0].profile_id,
-                                    profile_pic: url,
-                                    header: widget[0].header,
-                                    caption: widget[0].caption,
-                                    message: widget[0].message,
-                                    contact: widget[0].contact
+                                    ...widget[0],
+                                    profile_pic: url
                                 }]);
                             });
                         setLoading(false);
@@ -172,67 +173,119 @@ function Widget({location}) {
     };
 
     const setHeader = (e) => {
-        setWidget([{
-            profile_id: widget[0].profile_id,
-            profile_pic: widget[0].profile_pic,
-            header: e,
-            caption: widget[0].caption,
-            message: widget[0].message,
-            contact: widget[0].contact
-        }]);
+        setWidget([{...widget[0], header: e}]);
     };
 
     const setCaption = (e) => {
-        setWidget([{
-            profile_id: widget[0].profile_id,
-            profile_pic: widget[0].profile_pic,
-            header: widget[0].header,
-            caption: e,
-            message: widget[0].message,
-            contact: widget[0].contact
-        }]);
+        setWidget([{...widget[0], caption: e}]);
     };
 
     const setMessage = (e) => {
-        setWidget([{
-            profile_id: widget[0].profile_id,
-            profile_pic: widget[0].profile_pic,
-            header: widget[0].header,
-            caption: widget[0].caption,
-            message: e,
-            contact: widget[0].contact
-        }]);
+        setWidget([{...widget[0], message: e}]);
     };
 
     const setContact = (e) => {
-        setWidget([{
-            profile_id: widget[0].profile_id,
-            profile_pic: widget[0].profile_pic,
-            header: widget[0].header,
-            caption: widget[0].caption,
-            message: widget[0].message,
-            contact: e
-        }]);
+        setWidget([{...widget[0], contact: e}]);
     };
 
     const updateProfileAction = () => {
-        updateProfile(
-            widget[0].header,
-            widget[0].caption,
-            widget[0].message,
-            widget[0].contact);
+        updateWidget({...widget[0]});
     };
+
+    const setHeaderColor = (e) => {
+        setWidget([{...widget[0], headerColor: e}]);
+    };
+
+    const setHeaderTextColor = (e) => {
+        setWidget([{...widget[0], headerTextColor: e}]);
+    };
+
+    const setButtonColor = (e) => {
+        setWidget([{...widget[0], buttonColor: e}]);
+    };
+
+    const setButtonTextColor = (e) => {
+        setWidget([{...widget[0], buttonTextColor: e}]);
+    };
+
+    const pallete = [
+        '#FF6900',
+        '#FCB900',
+        '#7BDCB5',
+        '#25D366',
+        '#075E54',
+        '#8ED1FC',
+        '#0693E3',
+        '#FFFFFF',
+        '#EB144C',
+        '#F78DA7'
+    ];
 
     if (loading === false) {
         return (
             <div className='App'>
                 <HeaderComponent/>
                 <Row>
-                    <Col span={8}/>
                     <Col span={8}>
                         <Container>
                             <h1 style={heading}>
-                                Profile
+                                Set Color
+                            </h1>
+                            <div
+                                className='App-login'
+                                style={{borderRadius: 0, marginTop: '50px'}}
+                            >
+                                <div style={{width: '90%', marginLeft: '10%'}}>
+                                    <div style={{marginTop: '4%'}}>
+                                        <h1 style={head}>
+                                            Header
+                                        </h1>
+                                        <TwitterPicker
+                                            color={widget[0].headerColor}
+                                            colors={pallete}
+                                            onChangeComplete={(e) => setHeaderColor(e.hex)}
+                                        />
+                                    </div>
+                                    <div style={{marginTop: '4%'}}>
+                                        <h1 style={head}>
+                                            Header Text
+                                        </h1>
+                                        <TwitterPicker
+                                            color={widget[0].headerTextColor}
+                                            colors={pallete}
+                                            onChangeComplete={(e) => setHeaderTextColor(e.hex)}
+                                        />
+                                    </div>
+                                    <div style={{marginTop: '4%'}}>
+                                        <h1 style={head}>
+                                            Button
+                                        </h1>
+                                        <TwitterPicker
+                                            color={widget[0].buttonColor}
+                                            colors={pallete}
+                                            onChangeComplete={(e) => setButtonColor(e.hex)}
+                                        />
+                                    </div>
+                                    <div style={{marginTop: '4%'}}>
+                                        <h1 style={head}>
+                                            Button Text
+                                        </h1>
+                                        <TwitterPicker
+                                            color={widget[0].buttonTextColor}
+                                            colors={pallete}
+                                            onChangeComplete={(e) => setButtonTextColor(e.hex)}
+                                        />
+                                    </div>
+                                    <br/>
+                                </div>
+                            </div>
+                        </Container>
+                    </Col>
+
+                    <Col span={8}>
+                        <Container>
+                            <h1 style={heading}>
+                                Set Profile
                             </h1>
                             <div
                                 className='App-login'
@@ -302,7 +355,7 @@ function Widget({location}) {
                     <Col span={8}>
                         <Container>
                             <h1 style={heading}>
-                                Widget Preview
+                                Preview
                             </h1>
                             <div
                                 id='chat'
@@ -311,7 +364,7 @@ function Widget({location}) {
                                     height: 280,
                                     right: '2%',
                                     marginTop: '50px',
-                                    backgroundColor: '#075e54',
+                                    backgroundColor: widget[0].headerColor,
                                     bottom: 200,
                                     borderRadius: 10,
                                     textAlign: 'center',
@@ -337,21 +390,20 @@ function Widget({location}) {
                                             style={{
                                                 marginLeft: 40,
                                                 marginTop: 0,
-                                                marginBottom: 15,
+                                                marginBottom: 0,
                                                 fontSize: 22,
                                                 textAlign: 'left',
-                                                color: '#FFF'
+                                                color: widget[0].headerTextColor
                                             }}
                                         >
                                             {widget[0].header}&nbsp;
                                         </h1>
                                         <p
                                             style={{
-                                                marginTop: '-10px',
                                                 marginLeft: 40,
                                                 fontSize: 15,
                                                 textAlign: 'left',
-                                                color: '#FFF'
+                                                color: widget[0].headerTextColor
                                             }}
                                         >
                                             {widget[0].caption}&nbsp;
@@ -359,7 +411,13 @@ function Widget({location}) {
                                         <p/>
                                     </div>
                                 </div>
-                                <div style={{width: 350, height: 150, backgroundColor: '#ece5dd'}}>
+                                <div
+                                    style={{
+                                        width: 350,
+                                        height: 150,
+                                        backgroundImage: `url(${'https://firebasestorage.googleapis.com/v0/b/squarespace-chat.appspot.com/o/images%2Fwhatsapp.png?alt=media&token=dca2a6ca-0759-47c1-b828-86424004a2e8'})`
+                                    }}
+                                >
                                     <div
                                         style={{
                                             width: 150,
@@ -386,6 +444,8 @@ function Widget({location}) {
                                         </h4>
                                     </div>
                                 </div>
+
+
                                 <div
                                     style={{
                                         width: 350,
@@ -411,7 +471,7 @@ function Widget({location}) {
                                                 marginTop: 15,
                                                 paddingTop: 1,
                                                 borderRadius: 25,
-                                                backgroundColor: '#25d366'
+                                                backgroundColor: widget[0].buttonColor
                                             }}
                                         >
                                             <h4
@@ -421,7 +481,7 @@ function Widget({location}) {
                                                     marginLeft: 10,
                                                     marginRight: 10,
                                                     textAlign: 'center',
-                                                    color: '#FFF'
+                                                    color: widget[0].buttonTextColor
                                                 }}
                                             >
                                                 Start Chat

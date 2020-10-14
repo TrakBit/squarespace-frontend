@@ -15,20 +15,19 @@ export const getWidget = () => {
     return fetch.get('/widget/', {headers});
 };
 
+export const updateWidget = (body) => {
+    const headers = {
+        Authorization: 'Token ' + localStorage.getItem('token')
+    };
+    return fetch.put('/widget/', body, {headers});
+};
+
 export const upload = (url) => {
     const body = {url};
     const headers = {
         Authorization: 'Token ' + localStorage.getItem('token')
     };
     return fetch.post('/upload/', body, {headers});
-};
-
-export const updateProfile = (header, caption, message, contact) => {
-    const body = {header, caption, message, contact};
-    const headers = {
-        Authorization: 'Token ' + localStorage.getItem('token')
-    };
-    return fetch.post('/profile/', body, {headers});
 };
 
 export const register = (name, email, password) => {
