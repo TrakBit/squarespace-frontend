@@ -235,7 +235,7 @@ function Widget({location}) {
                                 className='App-login'
                                 style={{borderRadius: 0, marginTop: '50px'}}
                             >
-                                <div style={{width: '90%', marginLeft: '10%'}}>
+                                <div style={{width: '90%', marginLeft: '7%'}}>
                                     <div style={{marginTop: '4%'}}>
                                         <h1 style={head}>
                                             Header
