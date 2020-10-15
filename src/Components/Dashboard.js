@@ -134,7 +134,7 @@ function Dashboard() {
 
 const Widget = ({widget}) => {
     const snippet = `
-        <script src="https://www.airplug.xyz/webplug.js" defer></script>
+        <script src="https://www.salesjump.xyz/salesjump.js" defer></script>
         <div id='${widget[0].profile_id}' class="salesjump"></div>
   `;
 
