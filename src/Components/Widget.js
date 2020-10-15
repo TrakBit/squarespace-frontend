@@ -116,7 +116,9 @@ function Widget({location}) {
         headerColor: '#075E54',
         headerTextColor: '#FFFFFF',
         buttonColor: '#25D366',
-        buttonTextColor: '#FFFFFF'
+        buttonTextColor: '#FFFFFF',
+        floatingButtonColor: '#25D366',
+        floatingButtonTextColor: '#FFFFFF'
     }]);
 
     useEffect(() => {
@@ -208,6 +210,14 @@ function Widget({location}) {
         setWidget([{...widget[0], buttonTextColor: e}]);
     };
 
+    const setFloatingButtonColor = (e) => {
+        setWidget([{...widget[0], floatingButtonColor: e}]);
+    };
+
+    const setFloatingButtonTextColor = (e) => {
+        setWidget([{...widget[0], floatingButtonTextColor: e}]);
+    };
+
     const pallete = [
         '#FF6900',
         '#FCB900',
@@ -283,7 +293,39 @@ function Widget({location}) {
                                         </Card>
                                     </div>
 
-                                    <br/>
+                                    <div style={{marginTop: '4%'}}>
+                                        <Card style={{borderColor: '#e8e8e8'}}>
+                                            <h1 style={head}>
+                                                Floating Button
+                                            </h1>
+                                            <TwitterPicker
+                                                color={widget[0].floatingButtonColor}
+                                                colors={pallete}
+                                                onChangeComplete={(e) => setFloatingButtonColor(e.hex)}
+                                            />
+                                            <div style={{marginTop: '4%'}}>
+                                                <h1 style={head}>
+                                                    Floating Button Icon
+                                                </h1>
+                                                <TwitterPicker
+                                                    color={widget[0].floatingButtonTextColor}
+                                                    colors={pallete}
+                                                    onChangeComplete={(e) => setFloatingButtonTextColor(e.hex)}
+                                                />
+                                            </div>
+                                        </Card>
+                                    </div>
+
+                                    <div style={{paddingTop: '5%', paddingBottom: '5%'}}>
+                                        <OutlineButton
+                                            style={{width: '100%'}}
+                                            type='primary'
+                                            onClick={() => updateProfileAction()}
+                                        >
+                                            SAVE
+                                        </OutlineButton>
+                                    </div>
+
                                 </div>
                             </div>
                         </Container>
@@ -352,7 +394,7 @@ function Widget({location}) {
                                             type='primary'
                                             onClick={() => updateProfileAction()}
                                         >
-                                            UPDATE PROFILE
+                                            SAVE
                                         </OutlineButton>
                                     </div>
                                 </div>
@@ -504,7 +546,7 @@ function Widget({location}) {
                                     height: 60,
                                     marginTop: 105,
                                     marginLeft: '90%',
-                                    backgroundColor: '#FFF',
+                                    backgroundColor: widget[0].floatingButtonColor,
                                     borderRadius: 50,
                                     textAlign: 'center',
                                     zIndex: 100,
@@ -514,7 +556,7 @@ function Widget({location}) {
                                 <svg
                                     style={{marginTop: 13}}
                                     viewBox='0 0 90 90'
-                                    fill='rgb(79, 206, 93)'
+                                    fill={widget[0].floatingButtonTextColor}
                                     width={32}
                                     height={32}
                                 >
