@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Layout, Input, Spin} from 'antd';
+import {Row, Col, Layout, Input, Spin, Card} from 'antd';
 import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import config from './Config';
@@ -235,47 +235,54 @@ function Widget({location}) {
                                 className='App-login'
                                 style={{borderRadius: 0, marginTop: '50px'}}
                             >
-                                <div style={{width: '90%', marginLeft: '7%'}}>
+                                <div style={{width: '90%', marginLeft: '5%'}}>
+
                                     <div style={{marginTop: '4%'}}>
-                                        <h1 style={head}>
-                                            Header
-                                        </h1>
-                                        <TwitterPicker
-                                            color={widget[0].headerColor}
-                                            colors={pallete}
-                                            onChangeComplete={(e) => setHeaderColor(e.hex)}
-                                        />
+                                        <Card style={{borderColor: '#e8e8e8'}}>
+                                            <h1 style={head}>
+                                                Header
+                                            </h1>
+                                            <TwitterPicker
+                                                color={widget[0].headerColor}
+                                                colors={pallete}
+                                                onChangeComplete={(e) => setHeaderColor(e.hex)}
+                                            />
+                                            <div style={{marginTop: '4%'}}>
+                                                <h1 style={head}>
+                                                    Header Text
+                                                </h1>
+                                                <TwitterPicker
+                                                    color={widget[0].headerTextColor}
+                                                    colors={pallete}
+                                                    onChangeComplete={(e) => setHeaderTextColor(e.hex)}
+                                                />
+                                            </div>
+                                        </Card>
                                     </div>
+
                                     <div style={{marginTop: '4%'}}>
-                                        <h1 style={head}>
-                                            Header Text
-                                        </h1>
-                                        <TwitterPicker
-                                            color={widget[0].headerTextColor}
-                                            colors={pallete}
-                                            onChangeComplete={(e) => setHeaderTextColor(e.hex)}
-                                        />
+                                        <Card style={{borderColor: '#e8e8e8'}}>
+                                            <h1 style={head}>
+                                                Button
+                                            </h1>
+                                            <TwitterPicker
+                                                color={widget[0].buttonColor}
+                                                colors={pallete}
+                                                onChangeComplete={(e) => setButtonColor(e.hex)}
+                                            />
+                                            <div style={{marginTop: '4%'}}>
+                                                <h1 style={head}>
+                                                    Button Text
+                                                </h1>
+                                                <TwitterPicker
+                                                    color={widget[0].buttonTextColor}
+                                                    colors={pallete}
+                                                    onChangeComplete={(e) => setButtonTextColor(e.hex)}
+                                                />
+                                            </div>
+                                        </Card>
                                     </div>
-                                    <div style={{marginTop: '4%'}}>
-                                        <h1 style={head}>
-                                            Button
-                                        </h1>
-                                        <TwitterPicker
-                                            color={widget[0].buttonColor}
-                                            colors={pallete}
-                                            onChangeComplete={(e) => setButtonColor(e.hex)}
-                                        />
-                                    </div>
-                                    <div style={{marginTop: '4%'}}>
-                                        <h1 style={head}>
-                                            Button Text
-                                        </h1>
-                                        <TwitterPicker
-                                            color={widget[0].buttonTextColor}
-                                            colors={pallete}
-                                            onChangeComplete={(e) => setButtonTextColor(e.hex)}
-                                        />
-                                    </div>
+
                                     <br/>
                                 </div>
                             </div>

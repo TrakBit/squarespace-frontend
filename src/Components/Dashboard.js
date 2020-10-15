@@ -8,9 +8,11 @@ import {
     getWidget
 } from './../Api/Api';
 import {
-    CopyOutlined
+    CopyOutlined,
+    PlayCircleOutlined
 } from '@ant-design/icons';
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import Vimeo from '@u-wave/react-vimeo';
 
 const {Header} = Layout;
 const FlexCol = styled.div`
@@ -32,8 +34,8 @@ const ModalContainer = styled(FlexCol)`
 
 const customStyles = {
     content: {
-        height: '200px',
-        width: '50%',
+        height: '500px',
+        width: '900px',
         top: '50%',
         left: '50%',
         right: 'auto',
@@ -106,6 +108,7 @@ function Dashboard() {
         caption: '',
         message: ''
     }]);
+    const [codeModal, codeModalVisible] = useState(false);
 
     useEffect(() => {
         const config = async () => {
@@ -124,15 +127,22 @@ function Dashboard() {
 
     return (
         <div className='App'>
+            <AddCodeModal
+                codeModal={codeModal}
+                codeModalVisible={codeModalVisible}
+            />
             <HeaderComponent logout={logout}/>
             <Row>
-                <Widget widget={widget}/>
+                <Widget
+                    widget={widget}
+                    codeModalVisible={codeModalVisible}
+                />
             </Row>
         </div>
     );
 }
 
-const Widget = ({widget}) => {
+const Widget = ({widget, codeModalVisible}) => {
     const snippet = `
         <script src="https://www.salesjump.xyz/salesjump.js" defer></script>
         <div id='${widget[0].profile_id}' class="salesjump"></div>
@@ -218,6 +228,15 @@ const Widget = ({widget}) => {
                                     </h4>
                                 </Card>
                                 <br/>
+                                <OutlineButton
+                                    type='primary'
+                                    style={{width: '100%', marginBottom: '10px'}}
+                                    onClick={() => codeModalVisible(true)}
+                                >
+                                    <PlayCircleOutlined style={{fontSize: '18px'}}/>
+                                    {'  Add Widget to Squarespace'}
+                                </OutlineButton>
+                                <br/>
                             </div>
                         </div>
                     </Container>
@@ -284,4 +303,25 @@ function Icon() {
         </div>
     );
 }
+
+const AddCodeModal = ({codeModal, codeModalVisible}) => {
+    return (
+        <Dialog
+            ariaHideApp={false}
+            isOpen={codeModal}
+            style={customStyles}
+            onRequestClose={() => codeModalVisible(false)}
+        >
+            <ModalContainer>
+                <h4 style={head}>{'Add Code to Squarespace'}</h4>
+                <Vimeo
+                    video='468424688'
+                    height='400px'
+                    width='800px'
+                />
+            </ModalContainer>
+        </Dialog>
+    );
+};
+
 export default Dashboard;
