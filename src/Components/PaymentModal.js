@@ -116,6 +116,7 @@ const CheckoutForm = ({
     const elements = useElements();
 
     const handleSubmit = async (event) => {
+
         event.preventDefault();
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: 'card',
@@ -139,7 +140,7 @@ const CheckoutForm = ({
                 setLiveButtonColor('#00b7c2');
                 setLiveButtonText('LIVE');
             }
-            setLoading(false);
+            await setLoading(false);
         };
 
         if (error) {

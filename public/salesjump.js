@@ -28,12 +28,12 @@ initialRequest.onload = () => {
           width:350px;
           height:90px;
           margin-top: 30px;">
-          <div style="display:inline-block;width: 10%; vertical-align: -20px;">
+          <div style="margin-left: 25px; float:left;width: 10%; vertical-align: 3px;">
               <img src=${response.profile_pic} 
-                width="60px" height="60px" style="margin-top: 0px; border-radius: 30px;">
+                width="60px" height="60px" style="margin-top: 1px; border-radius: 30px;">
               </img>
           </div>
-          <div style="display:inline-block;width:80%; vertical-align: -7px;">
+          <div style="float:right;width:80%; vertical-align: -7px;">
               <h1 style=" 
                 margin-left: 40px;
                 margin-top: 0px;

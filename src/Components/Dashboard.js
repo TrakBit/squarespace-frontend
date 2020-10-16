@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Layout, Avatar, Card} from 'antd';
+import {Row, Col, Layout, Avatar, Card, Spin} from 'antd';
 import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import Dialog from 'react-modal';
@@ -178,46 +178,63 @@ function Dashboard() {
         paymentModalVisible(true);
     };
 
-    return (
-        <div className='App'>
-            <AddCodeModal
-                codeModal={codeModal}
-                codeModalVisible={codeModalVisible}
-            />
-            <PlansModal
-                plans={plans}
-                plansModal={plansModal}
-                plansModalVisible={plansModalVisible}
-                selectPlan={selectPlan}
-            />
-            <PaymentModal
-                paymentModal={paymentModal}
-                paymentModalVisible={paymentModalVisible}
-                selectedPlan={selectedPlan}
-                user={user}
-                billingDetails={billingDetails}
-                setBillingDetails={setBillingDetails}
-                setLiveButtonColor={setLiveButtonColor}
-                setLiveButtonText={setLiveButtonText}
-                setUser={setUser}
-                setLoading={setLoading}
-            />
-            <HeaderComponent
-                logout={logout}
-                account={account}
-                liveButtonColor={liveButtonColor}
-                liveButtonText={liveButtonText}
-                plansModalAction={plansModalAction}
-            />
-            <Row>
-                <Widget
-                    widget={widget}
+    if (loading === false) {
+        return (
+            <div className='App'>
+                <AddCodeModal
+                    codeModal={codeModal}
                     codeModalVisible={codeModalVisible}
-                    widgetExists={widgetExists}
                 />
-            </Row>
-        </div>
-    );
+                <PlansModal
+                    plans={plans}
+                    plansModal={plansModal}
+                    plansModalVisible={plansModalVisible}
+                    selectPlan={selectPlan}
+                />
+                <PaymentModal
+                    paymentModal={paymentModal}
+                    paymentModalVisible={paymentModalVisible}
+                    selectedPlan={selectedPlan}
+                    user={user}
+                    billingDetails={billingDetails}
+                    setBillingDetails={setBillingDetails}
+                    setLiveButtonColor={setLiveButtonColor}
+                    setLiveButtonText={setLiveButtonText}
+                    setUser={setUser}
+                    setLoading={setLoading}
+                />
+                <HeaderComponent
+                    logout={logout}
+                    account={account}
+                    liveButtonColor={liveButtonColor}
+                    liveButtonText={liveButtonText}
+                    plansModalAction={plansModalAction}
+                />
+                <Row>
+                    <Widget
+                        widget={widget}
+                        codeModalVisible={codeModalVisible}
+                        widgetExists={widgetExists}
+                    />
+                </Row>
+            </div>
+        );
+    } else {
+        return (
+            <div className='App'>
+                <HeaderComponent
+                    logout={logout}
+                    account={account}
+                    liveButtonColor={liveButtonColor}
+                    liveButtonText={liveButtonText}
+                    plansModalAction={plansModalAction}
+                />
+                <Container>
+                    <Spin size='large'/>
+                </Container>
+            </div>
+        );
+    }
 }
 
 const Widget = ({widget, widgetExists, codeModalVisible}) => {

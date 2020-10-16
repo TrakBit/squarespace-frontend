@@ -77,11 +77,11 @@ function Home() {
             return (
                 <>
                     <h1 style={{fontSize: '5vw', textAlign: 'center'}}>
-                        🍭 An eye candy on product page
-                        <br/>to boost up your sales. 💰
+                        📞 WhatsApp Chat on your
+                        <br/>Squarespace online store. 🛍️
                     </h1>
                     <h1 style={{fontSize: '2vw'}}>
-                        A Webflow e-commerce plugin for Upsell and Cross-Sell
+                        Add the human touch to your store
                     </h1>
                 </>
             );
@@ -89,11 +89,11 @@ function Home() {
             return (
                 <>
                     <h1 style={{fontSize: '9vw', textAlign: 'center'}}>
-                        🍭 An eye candy on product page
-                        <br/>to boost up your sales. 💰
+                        📞 WhatsApp Chat on your
+                        <br/>Squarespace online store. 🛍️
                     </h1>
                     <h1 style={{fontSize: '4vw'}}>
-                        A Webflow e-commerce plugin for Upsell and Cross-Sell
+                        Time to break the ice between you and your customer
                     </h1>
                 </>
             );
@@ -153,36 +153,35 @@ function Home() {
                             borderColor: '#00000',
                             paddingTop: '70px'
                         }}
-                        src={'https://user-images.githubusercontent.com/3825401/91666011-42759a00-eb17-11ea-8a81-b35a33d2e09f.jpg'}
+                        src={'https://firebasestorage.googleapis.com/v0/b/squarespace-chat.appspot.com/o/images%2Fcover.png?alt=media&token=0b4d88a2-5546-4d5a-b821-1dc8b6f0a5e9'}
                     />
                 </Container>
             </div>
 
             <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '35px', textAlign: 'center'}}>
-                    Add Custom Designed Cross Sell and Upsell Offers
+                    But why add a whatsApp chat ?
                 </h1>
                 <p style={{fontSize: '25px'}}>
-                    Give custom cross-sell offers <a style={highlight}><b>{'right on product page '}</b></a>. Select the choice of
-                    upsells and cross-sells for each product right in your webflow CMS
+                    Modern online businesses run on<a style={highlight}><b>{' small town rules. '}</b></a>
+                    There needs to be a personal connection between you and the customer.
                 </p>
-                <OutlineButton onClick={crosslink}>LIVE DEMO</OutlineButton>
             </Container>
 
             <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '35px', textAlign: 'center'}}>
-                    You don't make money 💸 by making user navigate your website
+                    Your customer have questions and they are looking for answers.
                 </h1>
                 <p style={{fontSize: '25px'}}>
-                    Remove the unecessary steps of making them visit every single product page.
-                    <a style={highlight}><b>{'Give them relatable suggestions based on their product selection '}</b></a>
-                    and make them press the <OutlineButton>BUY</OutlineButton> button.
+                    Customers wanna know
+                    <a style={highlight}><b>{' if there are more selections '}</b></a>
+                    and <a style={highlight}><b>{' when will it be shipped '}</b></a>, your presence is needed
                 </p>
             </Container>
 
             <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '45px', textAlign: 'center'}}>
-                    Why wait, boost your sales now 🚀
+                    Why wait, boost your customer support now 🚀
                 </h1>
                 <Link to={'/register'}><OutlineButton> JOIN</OutlineButton></Link>
             </Container>
@@ -192,7 +191,7 @@ function Home() {
                 <h1 style={heading}>{'Monthly Subscription'}</h1>
                 <div style={{marginTop: '1%', marginBottom: '5%'}}>
                     <h1 style={price}>
-                        $15
+                        $9
                     </h1>
                 </div>
             </div>
