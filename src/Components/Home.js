@@ -131,7 +131,7 @@ function Home() {
                     <Button key='3'>
                         <a
                             style={{color: '#FFFFFF'}}
-                            href='https://wa.me/919315368036'
+                            href='mailto:harsh.vardhan.611@gmail.com'
                         >Support</a>
                     </Button>
                 ]}
