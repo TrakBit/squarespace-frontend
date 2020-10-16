@@ -5,7 +5,7 @@ import {Link, useHistory} from 'react-router-dom';
 import config from './Config';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-import { TwitterPicker } from 'react-color';
+import {TwitterPicker} from 'react-color';
 import {
     getWidget,
     upload,
@@ -493,7 +493,6 @@ function Widget({location}) {
                                         </h4>
                                     </div>
                                 </div>
-
 
                                 <div
                                     style={{
