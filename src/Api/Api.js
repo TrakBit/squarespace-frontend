@@ -35,20 +35,12 @@ export const register = (name, email, password) => {
     return fetch.post('/register/', body);
 };
 
-export const saveAccessToken = (code, token) => {
-    const headers = {
-        Authorization: 'Token ' + localStorage.getItem('token')
-    };
-    const body = {code, token};
-    return fetch.post('/accesstoken/', body, {headers});
-};
-
 export const forgotPassword = (email) => {
     const body = {email};
     return fetch.post('/forgot/', body);
 };
 
-export const getInvoices = (invoice) => {
+export const getInvoices = () => {
     const headers = {
         Authorization: 'Token ' + localStorage.getItem('token')
     };
@@ -58,22 +50,6 @@ export const getInvoices = (invoice) => {
 export const login = (email, password) => {
     const body = {email, password};
     return fetch.post('/login/', body);
-};
-
-export const getSite = (token) => {
-    const headers = {
-        Authorization: 'Token ' + localStorage.getItem('token')
-    };
-    const body = {token};
-    return fetch.post('/site/', body, {headers});
-};
-
-export const verifySnippet = (siteId) => {
-    const headers = {
-        Authorization: 'Token ' + localStorage.getItem('token')
-    };
-    const body = {siteId};
-    return fetch.post('/snippet/', body, {headers});
 };
 
 export const createSubscription = (
@@ -117,22 +93,6 @@ export const getUser = () => {
 
 export const getPlans = () => {
     return fetch.get('/plans/');
-};
-
-export const verifyUpSell = (site_id) => {
-    const headers = {
-        Authorization: 'Token ' + localStorage.getItem('token')
-    };
-    const body = {token: localStorage.getItem('token'), site_id};
-    return fetch.post('/upsell/', body, {headers});
-};
-
-export const verifyCrossSell = (site_id) => {
-    const headers = {
-        Authorization: 'Token ' + localStorage.getItem('token')
-    };
-    const body = {token: localStorage.getItem('token'), site_id};
-    return fetch.post('/crosssell/', body, {headers});
 };
 
 export const resetPassword = (

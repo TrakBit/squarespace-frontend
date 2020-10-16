@@ -1,11 +1,15 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Layout, Avatar, Input, notification, Card} from 'antd';
+import {Row, Col, Layout, Avatar, Card} from 'antd';
 import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import Dialog from 'react-modal';
+import PlansModal from './PlansModal';
+import PaymentModal from './PaymentModal';
 import {
     createWidget,
-    getWidget
+    getWidget,
+    getUser,
+    getPlans
 } from './../Api/Api';
 import {
     CopyOutlined,
@@ -109,12 +113,45 @@ function Dashboard() {
         message: ''
     }]);
     const [codeModal, codeModalVisible] = useState(false);
+    const [widgetExists, setWidgetExists] = useState(false);
+    const [plans, setPlans] = useState([]);
+    const [plansModal, plansModalVisible] = useState(false);
+    const [paymentModal, paymentModalVisible] = useState(false);
+    const [liveButtonColor, setLiveButtonColor] = useState('#00b7c2');
+    const [liveButtonText, setLiveButtonText] = useState('LIVE');
+    const [selectedPlan, setSelectedPlan] = useState(null);
+    const [user, setUser] = useState({});
+    const [billingDetails, setBillingDetails] = useState({
+        name: '',
+        address: {
+            line1: '',
+            city: '',
+            country: 'US'
+        }
+    });
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const config = async () => {
-            const widgetData = await getWidget();
-            if (widgetData.data.widget.length > 0) {
-                setWidget(widgetData.data.widget);
+            let widgetData = {};
+            try {
+                widgetData = await getWidget();
+                if (widgetData.data.widget.length > 0) {
+                    setWidgetExists(true);
+                    setWidget(widgetData.data.widget);
+                }
+
+                const plansData = await getPlans();
+                setPlans(plansData.data.plans);
+
+                const userData = await getUser();
+                setUser(userData.data);
+                if (userData.data.live === 0) {
+                    setLiveButtonColor('#f36886');
+                    setLiveButtonText('GO LIVE 🚀');
+                }
+            } catch (error) {
+                logout();
             }
         };
         config();
@@ -125,30 +162,71 @@ function Dashboard() {
         history.push('/');
     };
 
+    const account = () => {
+        history.push('/account');
+    };
+
+    const plansModalAction = () => {
+        if (user.live === 0) {
+            plansModalVisible(true);
+        }
+    };
+
+    const selectPlan = (plan) => {
+        setSelectedPlan(plan);
+        plansModalVisible(false);
+        paymentModalVisible(true);
+    };
+
     return (
         <div className='App'>
             <AddCodeModal
                 codeModal={codeModal}
                 codeModalVisible={codeModalVisible}
             />
-            <HeaderComponent logout={logout}/>
+            <PlansModal
+                plans={plans}
+                plansModal={plansModal}
+                plansModalVisible={plansModalVisible}
+                selectPlan={selectPlan}
+            />
+            <PaymentModal
+                paymentModal={paymentModal}
+                paymentModalVisible={paymentModalVisible}
+                selectedPlan={selectedPlan}
+                user={user}
+                billingDetails={billingDetails}
+                setBillingDetails={setBillingDetails}
+                setLiveButtonColor={setLiveButtonColor}
+                setLiveButtonText={setLiveButtonText}
+                setUser={setUser}
+                setLoading={setLoading}
+            />
+            <HeaderComponent
+                logout={logout}
+                account={account}
+                liveButtonColor={liveButtonColor}
+                liveButtonText={liveButtonText}
+                plansModalAction={plansModalAction}
+            />
             <Row>
                 <Widget
                     widget={widget}
                     codeModalVisible={codeModalVisible}
+                    widgetExists={widgetExists}
                 />
             </Row>
         </div>
     );
 }
 
-const Widget = ({widget, codeModalVisible}) => {
+const Widget = ({widget, widgetExists, codeModalVisible}) => {
     const snippet = `
         <script src="https://www.salesjump.xyz/salesjump.js" defer></script>
         <div id='${widget[0].profile_id}' class="salesjump"></div>
   `;
 
-    if (widget.length > 0) {
+    if (widgetExists === true) {
         return (
             <>
                 <Col span={2}/>
@@ -272,21 +350,31 @@ const Widget = ({widget, codeModalVisible}) => {
     }
 };
 
-const HeaderComponent = ({logout}) => {
+const HeaderComponent = ({logout, account, liveButtonColor, liveButtonText, plansModalAction}) => {
     return (
         <Header style={{background: '#FFFFFF'}}>
             <Row>
                 <Col span={1}>
                     <Icon/>
                 </Col>
-                <Col span={18}>
+                <Col span={14}>
                     <Link to={'/dashboard'}><h1 style={Titlehead}>SalesJump</h1></Link>
                 </Col>
-                <Col span={2}/>
                 <Col
-                    span={2}
-                    style={{marginLeft: '10px'}}
+                    span={9}
                 >
+                    <LiveTag
+                        onClick={() => plansModalAction()}
+                        style={{
+                            borderColor: liveButtonColor,
+                            backgroundColor: liveButtonColor
+                        }}
+                    >
+                        {liveButtonText}
+                    </LiveTag>
+                    &ensp;
+                    <OutlineButton onClick={() => account()}>ACCOUNT</OutlineButton>
+                    &ensp;
                     <OutlineButton onClick={() => logout()}>LOGOUT</OutlineButton>
                 </Col>
             </Row>

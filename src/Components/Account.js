@@ -101,14 +101,269 @@ const heading = {
 };
 
 function Home() {
+    const history = useHistory();
+
+    const [email, setEmail] = useState('');
+    const [name, setName] = useState('');
+    const [currentPassword, setCurrentPassword] = useState('');
+    const [newPassword, setNewPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [subscription, setSubscription] = useState({
+        current_period_end: '',
+        nickname: '',
+        subscription_id: ''
+    });
+    const [invoices, setInvoices] = useState([]);
+    const [cancelPlanModal, cancelPlanModalVisible] = useState(false);
+
+    useEffect(() => {
+        async function setData() {
+            const emailData = await getUser();
+            setEmail(emailData.data.email);
+            setName(emailData.data.name);
+            const subscriptionsData = await getSubscription();
+            setSubscription(subscriptionsData.data);
+            const invoiceData = await getInvoices();
+            setInvoices(invoiceData.data.invoices);
+        }
+        setData();
+    }, []);
+
+    const logout = () => {
+        localStorage.clear();
+        history.push('/');
+    };
+
+    const reset = async () => {
+        const resetData = await resetPassword(
+            currentPassword,
+            newPassword,
+            confirmPassword,
+            localStorage.getItem('token')
+        );
+        errorMessage(resetData.data.message);
+    };
+
+    const errorMessage = (errorMsg) => {
+        notification.open({
+            message:
+    <div style={{fontSize: '30px'}}>
+        <Row>
+            <Col span={3}>
+                <InfoCircleTwoTone/>
+            </Col>
+            <Col span={15}>
+                {errorMsg}
+            </Col>
+        </Row>
+    </div>,
+            description: '',
+            onClick: () => {
+                notification.close();
+            }
+        });
+    };
+
+    const cancelPlan = async () => {
+        await cancelSubscription();
+        const subscriptionsData = await getSubscription();
+        setSubscription(subscriptionsData.data);
+        cancelPlanModalVisible(false);
+    };
+
     return (
         <div className='App'>
-            <HeaderComponent/>
+            <HeaderComponent logout={logout}/>
+            <CancelPlanModal
+                cancelPlanModal={cancelPlanModal}
+                cancelPlanModalVisible={cancelPlanModalVisible}
+                cancelPlan={cancelPlan}
+            />
+            <Row>
+                <Col span={8}>
+                    <Container>
+                        <h1 style={heading}>
+                            Account
+                        </h1>
+                        <div
+                            className='App-login'
+                            style={{borderRadius: 0, marginTop: '50px'}}
+                        >
+                            <div style={{width: '90%', marginLeft: '16px'}}>
+                                <div style={{marginTop: '4%'}}>
+                                    <h1 style={heading}>{'ACCOUNT DETAILS'}</h1>
+                                </div>
+                                <div style={{marginTop: '4%'}}>
+                                    <Avatar
+                                        size='large'
+                                        style={{backgroundColor: '#00b7c2'}}
+                                        icon={<UserOutlined/>}
+                                    />
+                                </div>
+                                <div style={{paddingTop: '4%'}}>
+                                    <h1 style={heading}>{name}</h1>
+                                </div>
+                                <div style={{paddingTop: '4%'}}>
+                                    <h1 style={heading}>{email}</h1>
+                                </div>
+                            </div>
+                        </div>
+
+                    </Container>
+                </Col>
+
+                <Col span={8}>
+                    <Container>
+                        <h1 style={heading}>
+                            Subscription
+                        </h1>
+                        <div
+                            className='Sub-card'
+                            style={{borderRadius: 0, marginTop: '50px'}}
+                        >
+                            <div style={{marginTop: '4%'}}>
+                                <h4 style={head}>{subscription.nickname}</h4>
+                            </div>
+                            <div style={{marginTop: '4%'}}>
+                                <h4 style={head}>{subscription.current_period_end}</h4>
+                            </div>
+                            <Button
+                                style={{width: '90%', marginBottom: '10px'}}
+                                type='primary'
+                                onClick={() => cancelPlanModalVisible(true)}
+                            >
+                                CANCEL PLAN
+                            </Button>
+                        </div>
+                    </Container>
+                    <Container>
+                        <h1 style={heading}>
+                            Invoices
+                        </h1>
+                        {
+                            invoices.map((invoice, i) => {
+                                return (
+                                    <div
+                                        className='Sub-card'
+                                        key={i}
+                                        style={{borderRadius: 0, marginBottom: '10px'}}
+                                    >
+                                        <div style={{marginTop: '4%'}}>
+                                            <h4 style={head}>{invoice.invoice_date}</h4>
+                                        </div>
+                                        <Button
+                                            style={{width: '90%', marginBottom: '4%'}}
+                                            type='primary'
+                                            onClick={() => window.open(invoice.invoice_url)}
+                                        >
+                                            OPEN INVOICE
+                                        </Button>
+                                    </div>
+                                );
+                            })
+                        }
+                    </Container>
+                </Col>
+
+                <Col span={8}>
+                    <Container>
+                        <h1 style={heading}>
+                            Reset Password
+                        </h1>
+                        <div
+                            className='App-login'
+                            style={{borderRadius: 0, marginTop: '50px'}}
+                        >
+                            <div style={{width: '90%', marginLeft: '16px'}}>
+                                <div style={{marginTop: '4%'}}>
+                                    <h4 style={head}>RESET</h4>
+                                </div>
+                                <div style={{paddingTop: '4%'}}>
+                                    <Input
+                                        addonBefore={'Current Password'}
+                                        value={currentPassword}
+                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                        placeholder='Password'
+                                        type={'password'}
+                                    />
+                                </div>
+                                <div style={{paddingTop: '4%'}}>
+                                    <Input
+                                        addonBefore={'New Password'}
+                                        value={newPassword}
+                                        onChange={(e) => setNewPassword(e.target.value)}
+                                        placeholder='Password'
+                                        type={'password'}
+                                    />
+                                </div>
+                                <div style={{paddingTop: '4%'}}>
+                                    <Input
+                                        addonBefore={'Confirm Password'}
+                                        value={confirmPassword}
+                                        onChange={(e) => setConfirmPassword(e.target.value)}
+                                        placeholder='Password'
+                                        type={'password'}
+                                    />
+                                </div>
+                                <div style={{paddingTop: '15%', paddingBottom: '5%'}}>
+                                    <Button
+                                        style={{width: '100%'}}
+                                        onClick={reset}
+                                        type='primary'
+                                    >
+                                        RESET
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    </Container>
+                </Col>
+            </Row>
         </div>
     );
 }
 
-const HeaderComponent = () => {
+const CancelPlanModal = ({cancelPlanModal, cancelPlanModalVisible, cancelPlan}) => {
+    return (
+        <Dialog
+            ariaHideApp={false}
+            isOpen={cancelPlanModal}
+            style={customStyles}
+            onRequestClose={() => cancelPlanModalVisible(false)}
+        >
+            <ModalContainer>
+                <h4 style={head}>{'Are you sure you want to cancel your plan ?'}</h4>
+                <Row>
+                    <Col span={10}>
+                        <LiveTag
+                            onClick={() => cancelPlan()}
+                            style={{
+                                borderColor: '#f36886',
+                                backgroundColor: '#f36886',
+                                width: '150px'
+                            }}
+                        >
+                            {'YES'}
+                        </LiveTag>
+                    </Col>
+                    <Col span={4}/>
+                    <Col span={10}>
+                        <Button
+                            onClick={() => cancelPlanModalVisible()}
+                            style={{
+                                width: '150px'
+                            }}
+                        >
+                            NO
+                        </Button>
+                    </Col>
+                </Row>
+            </ModalContainer>
+        </Dialog>
+    );
+};
+
+const HeaderComponent = ({logout}) => {
     return (
         <Header style={{background: '#FFFFFF'}}>
             <Row>
@@ -123,7 +378,7 @@ const HeaderComponent = () => {
                     span={2}
                     style={{marginLeft: '10px'}}
                 >
-                    <OutlineButton>LOGOUT</OutlineButton>
+                    <OutlineButton onClick={() => logout()}>LOGOUT</OutlineButton>
                 </Col>
             </Row>
         </Header>

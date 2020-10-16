@@ -4,7 +4,6 @@ import Home from './Components/Home';
 import Register from './Components/Register';
 import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
-import Configure from './Components/Configure/Configure';
 import Account from './Components/Account';
 import Widget from './Components/Widget';
 
@@ -36,11 +35,6 @@ export default function Routes() {
                     exact={true}
                     path='/login'
                     component={Login}
-                />
-                <Route
-                    exact={true}
-                    path='/configure'
-                    component={Configure}
                 />
                 <Route
                     exact={true}
