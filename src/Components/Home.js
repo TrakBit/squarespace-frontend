@@ -181,7 +181,7 @@ function Home() {
 
             <Container style={{margin: '0 auto', width: screenWidth}}>
                 <h1 style={{fontSize: '45px', textAlign: 'center'}}>
-                    Why wait, boost your customer support now 🚀
+                    Why wait, when a 2 minute setup is all it takes
                 </h1>
                 <Link to={'/register'}><OutlineButton> JOIN</OutlineButton></Link>
             </Container>
