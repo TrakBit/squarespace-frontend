@@ -178,6 +178,15 @@ function Dashboard() {
         paymentModalVisible(true);
     };
 
+    const createWidgetAction = async () => {
+        await createWidget();
+        const widgetData = await getWidget();
+        if (widgetData.data.widget.length > 0) {
+            setWidgetExists(true);
+            setWidget(widgetData.data.widget);
+        }
+    };
+
     if (loading === false) {
         return (
             <div className='App'>
@@ -215,6 +224,7 @@ function Dashboard() {
                         widget={widget}
                         codeModalVisible={codeModalVisible}
                         widgetExists={widgetExists}
+                        createWidgetAction={createWidgetAction}
                     />
                 </Row>
             </div>
@@ -237,7 +247,7 @@ function Dashboard() {
     }
 }
 
-const Widget = ({widget, widgetExists, codeModalVisible}) => {
+const Widget = ({widget, widgetExists, codeModalVisible, createWidgetAction}) => {
     const snippet = `
         <script src="https://www.salesjump.xyz/salesjump.js" defer></script>
         <div id='${widget[0].profile_id}' class="salesjump"></div>
@@ -354,7 +364,7 @@ const Widget = ({widget, widgetExists, codeModalVisible}) => {
                             <Button
                                 style={{width: '90%', marginBottom: '10px'}}
                                 type='primary'
-                                onClick={() => createWidget()}
+                                onClick={() => createWidgetAction()}
                             >
                                 CREATE WIDGET
                             </Button>
