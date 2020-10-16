@@ -89,16 +89,15 @@ initialRequest.onload = () => {
               <div 
                 style="
                 height: 50px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 margin-top: 15px;
                 padding-top: 1px;
                 border-radius: 25px;
                 background-color: ${response.buttonColor};">
                 <h4 style="
                     font-size : 20px;
-                    margin-top: 12px;
-                    margin-left: 10px;
-                    margin-right: 10px;
-                    text-align:center;
                     color: ${response.buttonTextColor}">
                     Start Chat
                 </h4>
