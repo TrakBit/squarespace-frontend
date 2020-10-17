@@ -1,7 +1,7 @@
 const icon = document.getElementsByClassName('salesjump');
 const id = icon[0].id;
 
-const host = 'https://squarespace.onrender.com';
+const host = 'https://squarespace.onrender.com/';
 const initialRequest = new XMLHttpRequest();
 initialRequest.open('POST', host + 'setup/', true);
 initialRequest.setRequestHeader(
