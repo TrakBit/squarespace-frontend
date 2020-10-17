@@ -135,6 +135,7 @@ function Widget({location}) {
         setLoading(true);
         const file = e.target.files[0];
         if (file) {
+            console.log(file);
             const fileType = file.type;
             const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
             if (validImageTypes.includes(fileType)) {
