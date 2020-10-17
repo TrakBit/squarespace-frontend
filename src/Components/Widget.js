@@ -152,7 +152,6 @@ function Widget({location}) {
         if (file) {
             const fileType = file.type;
             const fileSize = (parseInt(file.size, 10) / 1024) / 1024;
-            console.log(fileSize);
             if (fileSize < 1) {
                 const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
                 if (validImageTypes.includes(fileType)) {
