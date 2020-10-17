@@ -84,9 +84,8 @@ initialRequest.onload = () => {
           display: flex;
           justify-content: center;
           border-radius: 0px 0px 10px 10px;">
-          <a style="text-decoration: none; width: 90%" 
-              href='https://wa.me/${response.contact}'>
-              <div 
+              <div
+                id="start-chat" 
                 style="
                 height: 50px;
                 display: flex;
@@ -96,13 +95,12 @@ initialRequest.onload = () => {
                 padding-top: 1px;
                 border-radius: 25px;
                 background-color: ${response.buttonColor};">
-                <h4 style="
-                    font-size : 20px;
-                    color: ${response.buttonTextColor}">
-                    Start Chat
-                </h4>
+                  <h4 style="
+                      font-size : 20px;
+                      color: ${response.buttonTextColor}">
+                      Start Chat
+                  </h4>
               </div>
-          </a>
         </div>
     </div>
     <div id="action" style="position:fixed;
@@ -130,5 +128,8 @@ initialRequest.onload = () => {
         } else {
             chat.style.opacity = 0;
         }
+    });
+    document.getElementById('start-chat').addEventListener('click', () => {
+        window.open(`https://wa.me/${response.contact}`);
     });
 };
