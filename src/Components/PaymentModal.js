@@ -58,7 +58,7 @@ const head = {
     color: '#32325D'
 };
 
-const stripePromise = loadStripe('pk_test_sESuOVQ63qKj9RO2tkJRml8T00qo36XN4h');
+const stripePromise = loadStripe('pk_live_4BVjS3zxUpAnzX2LbapAZ1dE00czGfDM8Q');
 
 const PaymentModal = ({
     paymentModal,
