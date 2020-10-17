@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Row, Col, Layout, Input, Spin, Card} from 'antd';
+import {Row, Col, Layout, Input, Spin, Card, notification} from 'antd';
 import styled from 'styled-components';
 import {Link, useHistory} from 'react-router-dom';
 import config from './Config';
@@ -11,6 +11,7 @@ import {
     upload,
     updateWidget
 } from './../Api/Api';
+import {CloseCircleTwoTone} from '@ant-design/icons';
 
 const {Header} = Layout;
 const FlexCol = styled.div`
@@ -100,6 +101,20 @@ const heading = {
 firebase.initializeApp(config);
 const storage = firebase.storage();
 
+const failedNotification = (notificationMsg) => {
+    notification.open({
+        message:
+    <div style={{fontSize: '30px'}}>
+        <CloseCircleTwoTone twoToneColor='#eb4559'/>
+        {notificationMsg}
+    </div>,
+        description: '',
+        onClick: () => {
+            notification.close();
+        }
+    });
+};
+
 function Widget({location}) {
     const [image, setImage] = useState(null);
     const [url, setUrl] = useState('');
@@ -122,55 +137,60 @@ function Widget({location}) {
     }]);
 
     useEffect(() => {
-        const config = async () => {
+        const initConfig = async () => {
             const widgetData = await getWidget();
             if (widgetData.data.widget.length > 0) {
                 setWidget(widgetData.data.widget);
             }
         };
-        config();
+        initConfig();
     }, []);
 
     const handChange = (e) => {
         setLoading(true);
         const file = e.target.files[0];
         if (file) {
-            console.log(file);
             const fileType = file.type;
-            const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
-            if (validImageTypes.includes(fileType)) {
-                const uploadTask = storage.ref(`images/${location.state.profile_id}`).put(file);
-                uploadTask.on(
-                    'state_changed',
-                    (snapshot) => {
-                        const progress = Math.round(
-                            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-                        );
-                        setProgress(progress);
-                    },
-                    (error) => {
-                        setError(error);
-                    },
-                    () => {
-                        storage.
-                            ref('images').
-                            child(location.state.profile_id).
-                            getDownloadURL().
-                            then((url) => {
-                                setUrl(url);
-                                upload(url);
-                                setProgress(0);
-                                setWidget([{
-                                    ...widget[0],
-                                    profile_pic: url
-                                }]);
-                            });
-                        setLoading(false);
-                    }
-                );
+            const fileSize = ((file.size) / 1024) / 1024;
+            if (fileSize < 1) {
+                const validImageTypes = ['image/gif', 'image/jpeg', 'image/png'];
+                if (validImageTypes.includes(fileType)) {
+                    const uploadTask = storage.ref(`images/${location.state.profile_id}`).put(file);
+                    uploadTask.on(
+                        'state_changed',
+                        (snapshot) => {
+                            const progress = Math.round(
+                                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                            );
+                            setProgress(progress);
+                        },
+                        (error) => {
+                            setError(error);
+                        },
+                        () => {
+                            storage.
+                                ref('images').
+                                child(location.state.profile_id).
+                                getDownloadURL().
+                                then((url) => {
+                                    setUrl(url);
+                                    upload(url);
+                                    setProgress(0);
+                                    setWidget([{
+                                        ...widget[0],
+                                        profile_pic: url
+                                    }]);
+                                });
+                            setLoading(false);
+                        }
+                    );
+                } else {
+                    setLoading(false);
+                    setError('Please select an image to upload');
+                }
             } else {
                 setLoading(false);
-                setError('Please select an image to upload');
+                failedNotification('  Image size should be less than 1 MB');
             }
         }
     };
