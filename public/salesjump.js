@@ -1,7 +1,7 @@
 const icon = document.getElementsByClassName('salesjump');
 const id = icon[0].id;
 
-const host = 'https://squarespace.onrender.com/';
+const host = 'https://squarespace.onrender.com';
 const initialRequest = new XMLHttpRequest();
 initialRequest.open('POST', host + 'setup/', true);
 initialRequest.setRequestHeader(
@@ -84,6 +84,7 @@ initialRequest.onload = () => {
           display: flex;
           justify-content: center;
           border-radius: 0px 0px 10px 10px;">
+          <a style="text-decoration: none; width: 90%">
               <div
                 id="start-chat" 
                 style="
@@ -95,12 +96,13 @@ initialRequest.onload = () => {
                 padding-top: 1px;
                 border-radius: 25px;
                 background-color: ${response.buttonColor};">
-                  <h4 style="
-                      font-size : 20px;
-                      color: ${response.buttonTextColor}">
-                      Start Chat
-                  </h4>
+                <h4 style="
+                    font-size : 20px;
+                    color: ${response.buttonTextColor}">
+                    Start Chat
+                </h4>
               </div>
+          </a>
         </div>
     </div>
     <div id="action" style="position:fixed;
