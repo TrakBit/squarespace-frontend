@@ -113,7 +113,7 @@ function Dashboard() {
         message: ''
     }]);
     const [codeModal, codeModalVisible] = useState(false);
-    const [widgetExists, setWidgetExists] = useState(false);
+    const [widgetExists, setWidgetExists] = useState(true);
     const [plans, setPlans] = useState([]);
     const [plansModal, plansModalVisible] = useState(false);
     const [paymentModal, paymentModalVisible] = useState(false);
