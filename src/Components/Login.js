@@ -104,7 +104,7 @@ function Login() {
         <div className='App'>
             <Header style={{background: '#FFFFFF'}}>
                 <HeaderContainer>
-                    <Link to={'/'}><h1 style={Titlehead}>SalesJump</h1></Link>
+                    <a href={'https://salesjump.xyz/'}><h1 style={Titlehead}>SalesJump</h1></a>
                 </HeaderContainer>
             </Header>
             <Container>

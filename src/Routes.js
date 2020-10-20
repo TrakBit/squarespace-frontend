@@ -1,6 +1,5 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from './Components/Home';
 import Register from './Components/Register';
 import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
@@ -11,11 +10,6 @@ export default function Routes() {
     return (
         <Router>
             <Switch>
-                <Route
-                    exact={true}
-                    path='/'
-                    component={Home}
-                />
                 <Route
                     exact={true}
                     path='/widget'
@@ -33,7 +27,7 @@ export default function Routes() {
                 />
                 <Route
                     exact={true}
-                    path='/login'
+                    path='/'
                     component={Login}
                 />
                 <Route
