@@ -32,6 +32,11 @@ export default function Routes() {
                 />
                 <Route
                     exact={true}
+                    path='/login'
+                    component={Login}
+                />
+                <Route
+                    exact={true}
                     path='/account'
                     component={Account}
                 />
