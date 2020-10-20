@@ -153,7 +153,7 @@ function Home() {
                             borderColor: '#00000',
                             paddingTop: '70px'
                         }}
-                        src={'https://firebasestorage.googleapis.com/v0/b/squarespace-chat.appspot.com/o/images%2Fcover.png?alt=media&token=0b4d88a2-5546-4d5a-b821-1dc8b6f0a5e9'}
+                        src={'https://firebasestorage.googleapis.com/v0/b/squarespace-chat.appspot.com/o/images%2Fcover-min.png?alt=media&token=744d3e0d-7045-4fed-876e-09800b543d07'}
                     />
                 </Container>
             </div>
