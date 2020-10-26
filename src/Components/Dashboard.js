@@ -249,7 +249,7 @@ function Dashboard() {
 
 const Widget = ({widget, widgetExists, codeModalVisible, createWidgetAction}) => {
     const snippet = `
-        <script src="https://www.salesjump.xyz/salesjump.js" defer></script>
+        <script src="https://app.salesjump.xyz/salesjump.js" defer></script>
         <div id='${widget[0].profile_id}' class="salesjump"></div>
   `;
 
