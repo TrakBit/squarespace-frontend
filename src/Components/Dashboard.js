@@ -139,6 +139,8 @@ function Dashboard() {
                 if (widgetData.data.widget.length > 0) {
                     setWidgetExists(true);
                     setWidget(widgetData.data.widget);
+                } else {
+                    setWidgetExists(false);
                 }
 
                 const plansData = await getPlans();
