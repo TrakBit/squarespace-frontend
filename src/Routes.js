@@ -4,7 +4,7 @@ import Register from './Components/Register';
 import Dashboard from './Components/Dashboard';
 import Login from './Components/Login';
 import Account from './Components/Account';
-import Widget from './Components/Widget';
+import Widget from './Components/Widget/Widget';
 
 export default function Routes() {
     return (

@@ -116,7 +116,6 @@ const CheckoutForm = ({
     const elements = useElements();
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
         const {error, paymentMethod} = await stripe.createPaymentMethod({
             type: 'card',
